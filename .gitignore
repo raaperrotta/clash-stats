@@ -1,0 +1,9 @@
+.env
+.idea
+.DS_Store
+celerybeat-schedule
+
+*.pyc
+*.log
+*.db
+*.bak

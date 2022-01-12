@@ -1,0 +1,8 @@
+celery
+click
+environs
+numpy
+pandas
+pony
+requests
+redis
