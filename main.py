@@ -1,20 +1,20 @@
 from pony.orm import set_sql_debug
 
-from clash_stats import client, stats, tasks
+from clash_stats import parser, stats, tasks
 
 
 def fetch_my_data():
     """Fetch player data for Robert and Colleen"""
-    client.write_player(client.get_player("#RL2C0UYY"))
-    client.write_player(client.get_player("#RULJG8Q9"))
+    parser.write_player(parser.get_player("#RL2C0UYY"))
+    parser.write_player(parser.get_player("#RULJG8Q9"))
 
 
 def fetch_clan_data():
     """Fetch all FearTheClan members' data"""
-    members = client.get_clan_members("#8998L2GJ")
+    members = parser.get_clan_members("#8998L2GJ")
     for member in members:
         print("Fetching data for", member["name"])
-        client.write_player(client.get_player(member["tag"]))
+        parser.write_player(parser.get_player(member["tag"]))
 
 
 def try_celery():

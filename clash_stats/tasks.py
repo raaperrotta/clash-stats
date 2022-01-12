@@ -2,7 +2,9 @@ from celery import Celery
 from celery.schedules import crontab
 from celery.utils.log import get_task_logger
 
-from . import REDIS_URL, client
+from clash_api import client
+
+from . import REDIS_URL, parser
 
 LOGGER = get_task_logger(__name__)
 LOGGER.info("Importing the %s module", __name__)
@@ -36,7 +38,7 @@ def get_and_write_clan(clan_tag):
             member["tag"],
             member["name"],
         )
-        client.write_player(player_data)
+        parser.write_player(player_data)
 
 
 @app.on_after_configure.connect
@@ -44,4 +46,4 @@ def setup_periodic_tasks(sender, **kwargs):
     LOGGER.info(
         "Setting up periodic task to fetch data for clan #8998L2GJ every 10 minutes"
     )
-    sender.add_periodic_task(crontab(minute="*/1"), get_and_write_clan.si("#8998L2GJ"))
+    sender.add_periodic_task(crontab(minute="*/10"), get_and_write_clan.si("#8998L2GJ"))

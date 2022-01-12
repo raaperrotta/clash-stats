@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pony.orm import Database, Optional, PrimaryKey, Required, Set, set_sql_debug
+from pony.orm import Database, Optional, PrimaryKey, Required, Set
 
 from . import SQLITE_FILE  # PSQL_DB, PSQL_HOST, PSQL_PASSWORD, PSQL_USER
 
