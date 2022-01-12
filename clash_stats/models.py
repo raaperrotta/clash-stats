@@ -2,17 +2,17 @@ from datetime import datetime
 
 from pony.orm import Database, Optional, PrimaryKey, Required, Set, set_sql_debug
 
-from . import PSQL_DB, PSQL_HOST, PSQL_PASSWORD, PSQL_USER
+from . import SQLITE_FILE  # PSQL_DB, PSQL_HOST, PSQL_PASSWORD, PSQL_USER
 
 db = Database()
-# db.bind(provider='sqlite', filename=':memory:', create_db=True)
-db.bind(
-    provider="postgres",
-    database=PSQL_DB,
-    user=PSQL_USER,
-    host=PSQL_HOST,
-    password=PSQL_PASSWORD,
-)
+db.bind(provider="sqlite", filename=SQLITE_FILE, create_db=True)
+# db.bind(
+#     provider="postgres",
+#     database=PSQL_DB,
+#     user=PSQL_USER,
+#     host=PSQL_HOST,
+#     password=PSQL_PASSWORD,
+# )
 
 
 class Player(db.Entity):
