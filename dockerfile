@@ -6,6 +6,6 @@ FROM python:3.9
 COPY requirements.txt .
 RUN pip install --no-cache -r requirements.txt
 
-COPY clash_stats .
+COPY clash_stats ./clash_stats
 
-CMD celery -A clash_stats.tasks worker -B
+CMD PYTHONPATH=. celery -A clash_stats.tasks worker -B

@@ -2,15 +2,13 @@ from celery import Celery
 from celery.schedules import crontab
 from celery.utils.log import get_task_logger
 
-from . import client
+from . import REDIS_URL, client
 
 LOGGER = get_task_logger(__name__)
 LOGGER.info("Importing the %s module", __name__)
 
 LOGGER.info("Connecting celery to redis")
-app = Celery(
-    "clash", broker="redis://localhost:6379/0", backend="redis://localhost:6379/0"
-)
+app = Celery("clash", broker=REDIS_URL, backend=REDIS_URL)
 LOGGER.info("Connected celery to redis")
 
 
@@ -46,4 +44,4 @@ def setup_periodic_tasks(sender, **kwargs):
     LOGGER.info(
         "Setting up periodic task to fetch data for clan #8998L2GJ every 10 minutes"
     )
-    sender.add_periodic_task(crontab(minute="*/10"), get_and_write_clan.si("#8998L2GJ"))
+    sender.add_periodic_task(crontab(minute="*/1"), get_and_write_clan.si("#8998L2GJ"))
